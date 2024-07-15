@@ -2,6 +2,7 @@
 stages:          # List of stages for jobs, and their order of execution
   - install_tools
   - test
+  - security
 
 install_mvn_trivy_docker_kubectl:       # This job runs in the build stage, which runs first.
   stage: install_tools
@@ -17,6 +18,13 @@ unit_testing:
   stage: test
   script:
     - mvn test
+  tags:
+    - self-hosted
+
+trivy_fs_scan:
+  stage: security
+  script:
+    - trivy fs --format table -D fileSystem.html .
   tags:
     - self-hosted
 
