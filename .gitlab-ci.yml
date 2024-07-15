@@ -24,7 +24,7 @@ unit_testing:
 trivy_fs_scan:
   stage: security
   script:
-    - trivy fs --format table -D fileSystem.html .
+    - trivy fs --format table -o fileSystem.html .
   tags:
     - self-hosted
 
