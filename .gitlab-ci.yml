@@ -4,6 +4,7 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - security
   - build
+  - docker
 
 install_mvn_trivy_docker_kubectl:       # This job runs in the build stage, which runs first.
   stage: install_tools
@@ -52,6 +53,18 @@ build_app:
   stage: build
   script:
     - mvn package
+  tags:
+    - self-hosted
+  only:
+    - main
+
+build_and_tag_push_image:
+  stage: docker
+  script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - mvn package
+    - mvn spring-boot:build-image -Dspring-boot.build-image.imageName=optimiste/test-driven-development:1.0.0
+    - docker push optimiste/test-driven-development:1.0.0
   tags:
     - self-hosted
   only:
