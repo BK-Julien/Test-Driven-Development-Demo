@@ -30,6 +30,7 @@ trivy_fs_scan:
     - self-hosted
 
 sonarqube-check:
+  stage: sonarqube-check
   image: 
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
