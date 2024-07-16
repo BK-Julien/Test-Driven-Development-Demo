@@ -40,7 +40,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
-    - sonar-scanner -X
+    - sonar-scanner -v
   tags:
     - self-hosted
   allow_failure: true
