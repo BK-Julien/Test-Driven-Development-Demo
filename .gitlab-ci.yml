@@ -17,7 +17,7 @@ install_mvn_trivy_docker_kubectl:       # This job runs in the build stage, whic
 unit_testing:
   stage: test
   script:
-    - mvn test
+    - mvn clean test
   tags:
     - self-hosted
 
@@ -40,7 +40,7 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script: 
-    - sonar-scanner
+    - sonar-scanner -X
   tags:
     - self-hosted
   allow_failure: true
