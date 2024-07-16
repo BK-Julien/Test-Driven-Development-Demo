@@ -3,7 +3,7 @@ stages:          # List of stages for jobs, and their order of execution
   - install_tools
   - test
   - security
-
+  - build
 
 install_mvn_trivy_docker_kubectl:       # This job runs in the build stage, which runs first.
   stage: install_tools
@@ -45,5 +45,14 @@ sonarqube-check:
   tags:
     - self-hosted
   allow_failure: true
+  only:
+    - main
+
+build_app:
+  stage: build
+  script:
+    - mvn package
+  tags:
+    - self-hosted
   only:
     - main
