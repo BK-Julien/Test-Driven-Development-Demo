@@ -43,6 +43,8 @@ sonarqube-check:
       - .sonar/cache
   script: 
     - sonar-scanner
+  tags:
+    - self-hosted
   allow_failure: true
   only:
     - main
