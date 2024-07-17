@@ -63,9 +63,17 @@ build_and_tag_push_image:
   script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - mvn package
-    - mvn spring-boot:build-image -Dspring-boot.build-image.imageName=optimiste/test-driven-development:1.0.0
+    - mvn spring-boot:build-image -Dspring-boot.build-image.imageName=optimiste/test-driven-development:1.0.0 
     - docker push optimiste/test-driven-development:1.0.0
   tags:
     - self-hosted
   only:
     - main
+
+trivy_image_scan:
+  stage: security
+  script:
+    - trivy image -f json -o fileSystem.json --severity HIGH,CRITICAL optimiste/test-driven-development:1.0.0
+  tags:
+    - self-hosted
+      
