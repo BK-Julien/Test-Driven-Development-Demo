@@ -27,6 +27,9 @@ trivy_fs_scan:
   stage: security
   script:
     - trivy fs --format table -o fileSystem.html .
+  artifacts:
+    paths:
+      - fileSystem.html
   tags:
     - self-hosted
 
@@ -73,7 +76,10 @@ build_and_tag_push_image:
 trivy_image_scan:
   stage: security
   script:
-    - trivy image -f json -o fileSystem.json --severity HIGH,CRITICAL optimiste/test-driven-development:1.0.0
+    - trivy image -f json -o results.json --severity HIGH,CRITICAL optimiste/test-driven-development:1.0.0
+  artifacts:
+    paths:
+      - results.json
   tags:
     - self-hosted
       
