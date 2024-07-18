@@ -77,6 +77,7 @@ trivy_image_scan:
   stage: security
   script:
     - trivy image -f json -o results.json --severity HIGH,CRITICAL optimiste/test-driven-development:1.0.0
+    - dockle optimiste/test-driven-development:1.0.0  
   artifacts:
     paths:
       - results.json
